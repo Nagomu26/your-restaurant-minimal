@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 0 0% 7%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 38%;
+    --accent: 60 92% 52%;
+    --accent-foreground: 0 0% 7%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 0 0% 7%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  section[id],
+  footer[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #0a0a0a;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: rgba(230, 240, 28, 0.9);
+    color: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d6d6cf;
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0a0a0a;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #0a0a0a;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Brillo que cruza el botón */
+  .btn-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-sheen::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+  }
+  .btn-sheen:hover::after {
+    left: 130%;
+  }
+
+  /* Subrayado de marcador amarillo para acentos */
+  .text-mark {
+    position: relative;
+    display: inline;
+    background-image: linear-gradient(transparent 62%, rgba(230, 240, 28, 0.85) 62%, rgba(230, 240, 28, 0.85) 96%, transparent 96%);
+  }
+
+  /* Estilo MINIMAL: todo a esquinas rectas (Override global sobre utilities) */
+  .rounded-full {
+    border-radius: 0.15rem;
+  }
+  .rounded-2xl {
+    border-radius: 0.25rem;
+  }
+  .rounded-xl {
+    border-radius: 0.22rem;
+  }
+  .rounded-lg {
+    border-radius: 0.2rem;
+  }
+
+  /* Franja ocupada en la rejilla de horas */
+  .slot-occupied {
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgba(10, 10, 10, 0.5) 0px,
+      rgba(10, 10, 10, 0.5) 3px,
+      transparent 3px,
+      transparent 8px
+    );
+  }
+
+  .day-option,
+  .slot-option,
+  .service-option {
+    transition: all 0.2s ease;
+  }
+  .day-option:hover,
+  .slot-option:hover,
+  .service-option:hover {
+    transform: translateY(-1px);
+  }
+  .slot-option:disabled:hover,
+  .day-option:focus-visible,
+  .service-option:focus-visible {
+    transform: none;
+  }
+
+  /* Conector visual entre pasos del formulario */
+  .step-badge {
+    background: #0a0a0a;
+    color: #ffffff;
+  }
+
+  /* Estado SELECCIONADO de día / hora / servicio */
+  .seleccionado {
+    background: #E6F01C !important;
+    border-color: #0a0a0a !important;
+    box-shadow:
+      0 0 0 1px rgba(10, 10, 10, 0.25),
+      0 6px 20px -8px rgba(10, 10, 10, 0.4) !important;
+  }
+  .seleccionado,
+  .seleccionado span {
+    color: #0a0a0a !important;
+  }
+
+  /* Tarjetas con elevación suave */
+  .card-lift {
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease,
+      border-color 0.35s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px -28px rgba(10, 10, 10, 0.22);
+  }
+
+  /* Punto separador decorativo */
+  .dot-divider {
+    background-image: radial-gradient(circle, rgba(10, 10, 10, 0.3) 1px, transparent 1px);
+    background-size: 14px 14px;
+    background-repeat: repeat-x;
+    height: 12px;
+  }
+
+  /* Revelado de secciones al hacer scroll */
+  .reveal-target {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
+  }
+  .reveal-target.reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-target {
+      opacity: 1;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+}
